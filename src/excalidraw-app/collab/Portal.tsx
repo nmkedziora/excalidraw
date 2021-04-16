@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   encryptAESGEM,
   SocketUpdateData,
@@ -32,7 +33,7 @@ class Portal {
     // Initialize socket listeners
     this.socket.on("init-room", () => {
       if (this.socket) {
-        this.socket.emit("join-room", this.roomId);
+        this.socket.emit("new-user", this.roomId);
         trackEvent("share", "room joined");
       }
     });
@@ -77,12 +78,7 @@ class Portal {
       const json = JSON.stringify(data);
       const encoded = new TextEncoder().encode(json);
       const encrypted = await encryptAESGEM(encoded, this.roomKey!);
-      this.socket!.emit(
-        volatile ? BROADCAST.SERVER_VOLATILE : BROADCAST.SERVER,
-        this.roomId,
-        encrypted.data,
-        encrypted.iv,
-      );
+      this.socket!.emit("client-broadcast", data);
     }
   }
 

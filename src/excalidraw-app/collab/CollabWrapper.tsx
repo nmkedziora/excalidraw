@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import throttle from "lodash.throttle";
 import React, { PureComponent } from "react";
 import { ExcalidrawImperativeAPI } from "../../components/App";
@@ -41,6 +42,7 @@ import { t } from "../../i18n";
 import { UserIdleState } from "../../types";
 import { IDLE_THRESHOLD, ACTIVE_THRESHOLD } from "../../constants";
 import { trackEvent } from "../../analytics";
+import { AblySocket } from "./AblySocket";
 
 interface CollabState {
   modalIsShown: boolean;
@@ -245,7 +247,7 @@ class CollabWrapper extends PureComponent<Props, CollabState> {
       /* webpackChunkName: "socketIoClient" */ "socket.io-client"
     );
 
-    this.portal.open(socketIOClient(SOCKET_SERVER), roomId, roomKey);
+    this.portal.open(new AblySocket(roomId), roomId, roomKey);
 
     if (existingRoomLinkData) {
       this.excalidrawAPI.resetScene();
@@ -289,15 +291,16 @@ class CollabWrapper extends PureComponent<Props, CollabState> {
     // All socket listeners are moving to Portal
     this.portal.socket!.on(
       "client-broadcast",
-      async (encryptedData: ArrayBuffer, iv: Uint8Array) => {
+      async (encryptedData: any, iv: Uint8Array) => {
         if (!this.portal.roomKey) {
           return;
         }
-        const decryptedData = await decryptAESGEM(
+        const decryptedData: any =
+          encryptedData.data; /*await decryptAESGEM(
           encryptedData,
           this.portal.roomKey,
           iv,
-        );
+        )*/
 
         switch (decryptedData.type) {
           case "INVALID_RESPONSE":
