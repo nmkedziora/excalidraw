@@ -295,8 +295,7 @@ class CollabWrapper extends PureComponent<Props, CollabState> {
         if (!this.portal.roomKey) {
           return;
         }
-        const decryptedData: any =
-          encryptedData.data; /*await decryptAESGEM(
+        const decryptedData: any = encryptedData; /*await decryptAESGEM(
           encryptedData,
           this.portal.roomKey,
           iv,
