@@ -542,9 +542,9 @@ const LayerUI = ({
             gap={4}
             className={clsx({ "disable-pointerEvents": zenModeEnabled })}
           >
-            {viewModeEnabled
-              ? renderViewModeCanvasActions()
-              : renderCanvasActions()}
+            {/*{viewModeEnabled*/}
+            {/*  ? renderViewModeCanvasActions()*/}
+            {/*  : renderCanvasActions()}*/}
             {shouldRenderSelectedShapeActions && renderSelectedShapeActions()}
           </Stack.Col>
           {!viewModeEnabled && (
