@@ -419,6 +419,7 @@ const LayerUI = ({
     );
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const renderViewModeCanvasActions = () => {
     return (
       <Section
@@ -441,6 +442,7 @@ const LayerUI = ({
       </Section>
     );
   };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const renderCanvasActions = () => (
     <Section
       heading="canvasActions"
